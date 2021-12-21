@@ -23,6 +23,7 @@ jobs:
       - name: 'Install requirements'
         run: 
           pip install selenium
+          pip install bs4
         
       - name: 'Working'
         run:
