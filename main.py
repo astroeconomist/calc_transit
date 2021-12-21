@@ -107,12 +107,14 @@ if __name__=="__main__":
     parser = ArgumentParser()
     parser.add_argument('--USERNAME', type=str)
     parser.add_argument('--PASSWORD', type=str)
+    parser.add_argument('--RECEIVERS', type=str)
+    parser.add_argument('--HOST', type=str)
     argconf = parser.parse_args()
-    mail_host = "smtp.126.com"
+    mail_host = argconf.HOST
     mail_username = argconf.USERNAME
     mail_password = argconf.PASSWORD
     sender = argconf.USERNAME
-    receivers = [argconf.USERNAME]
+    receivers = argconf.RECEIVERS.split(",")
 
     message = MIMEText(mail_content,'plain','utf-8')
     message['Subject'] = title
