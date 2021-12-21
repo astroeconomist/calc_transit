@@ -1,4 +1,4 @@
-name: PKUAutoSubmit
+name: Bot
 
 on:
   schedule:
