@@ -24,6 +24,7 @@ jobs:
         run: 
           pip install selenium
           pip install bs4
+          pip install lxml
         
       - name: 'Working'
         run:
