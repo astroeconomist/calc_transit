@@ -60,6 +60,7 @@ if __name__=="__main__":
         date = time_list[0].split()[1]
         time = time_list[1].split("•")[0].strip()
         date_time = datetime.fromisoformat("{} {}0".format(date, time)) #datetime对象
+        date_time = date_time + timedelta(hours=8)
         if date_time - nowBJtime > timedelta(days=7):
             continue
         transit_type = time_list[1].split("•")[1].strip() #事件类型
