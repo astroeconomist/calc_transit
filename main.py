@@ -11,7 +11,6 @@ LAT = 39.99149 #纬度
 LON = 116.30812 #经度
 ALT = 50 #海拔
 DAY = 7 #需要获取多少天以内的信息
-DIS = 50
 
 if __name__=="__main__":
 
@@ -61,7 +60,7 @@ if __name__=="__main__":
         time = time_list[1].split("•")[0].strip()
         date_time = datetime.fromisoformat("{} {}0".format(date, time)) #datetime对象
         date_time = date_time + timedelta(hours=8)
-        if date_time - nowBJtime > timedelta(days=7):
+        if date_time - nowBJtime > timedelta(days=DAY+1) or date_time < nowBJtime:
             continue
         transit_type = time_list[1].split("•")[1].strip() #事件类型
         is_sun = 1 if "Sun" in transit_type else 0 #太阳=1，月亮=0
@@ -92,7 +91,7 @@ if __name__=="__main__":
 
 
     today_str = "{}年{}月{}日".format(nowBJtime.year, nowBJtime.month, nowBJtime.day)
-    title = "{} 未来一周空间站五可见凌日凌月".format(today_str)
+    title = "{} 未来一周空间站无可见凌日凌月".format(today_str)
     if sun_transit>0 and moon_transit>0:
         title = "{} 未来一周空间站凌日{}次，凌月{}次".format(today_str, sun_transit, moon_transit)
     if sun_transit==0 and moon_transit>0:
@@ -100,8 +99,12 @@ if __name__=="__main__":
     if moon_transit==0 and sun_transit>0:
         title = "{} 未来一周空间站凌日{}次".format(today_str, sun_transit)
 
-
-    mail_content = "".join([x["content"] for x in event_list])
+    mail_content = '''未来一周空间站凌日凌月预报
+    地点：北纬{}度，东经{}度
+    预报生成时间：{}
+    '''.format(LAT, LON, today_str)
+    mail_content += "".join([x["content"] for x in event_list])
+    mail_content += "本预报使用北大青年天文学会空间站凌日预报信息机器人自动生成。"
 
 
     parser = ArgumentParser()
